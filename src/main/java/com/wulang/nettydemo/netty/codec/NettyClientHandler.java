@@ -1,7 +1,6 @@
-package com.wulang.nettydemo.netty.simple;
+package com.wulang.nettydemo.netty.codec;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
@@ -11,8 +10,9 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     //当通道就绪就会触发该方法
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("client " + ctx);
-        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, server: (>^ω^<)喵", CharsetUtil.UTF_8));
+        //发送一个 Student 对象发到服务器
+        StudentPOJO.Student student = StudentPOJO.Student.newBuilder().setId(1).setName("吴浪 测试Proto").build();
+        ctx.writeAndFlush(student);
     }
 
     //当通道有读取事件时，会触发

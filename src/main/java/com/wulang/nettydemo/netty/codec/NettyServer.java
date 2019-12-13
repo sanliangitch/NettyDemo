@@ -1,10 +1,11 @@
-package com.wulang.nettydemo.netty.simple;
+package com.wulang.nettydemo.netty.codec;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
 
 public class NettyServer {
     public static void main(String[] args) throws Exception {
@@ -36,8 +37,11 @@ public class NettyServer {
                         //给pipeline 设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            System.out.println("客户socketchannel hashcode=" + ch.hashCode()); //可以使用一个集合管理 SocketChannel， 再推送消息时，可以将业务加入到各个channel 对应的 NIOEventLoop 的 taskQueue 或者 scheduleTaskQueue
-                            ch.pipeline().addLast(new NettyServerHandler());
+                            ChannelPipeline pipeline = ch.pipeline();
+                            //在pipeline加入ProtoBufDecoder
+                            //指定对哪种对象进行解码
+                            pipeline.addLast("decoder", new ProtobufDecoder(StudentPOJO.Student.getDefaultInstance()));
+                            pipeline.addLast(new NettyServerHandler());
                         }
                     }); // 给我们的workerGroup 的 EventLoop 对应的管道设置处理器
 
