@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.atguigu.netty.source.echo2;
+package com.wulang.nettydemo.netty.source.echo2;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
