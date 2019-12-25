@@ -4,7 +4,7 @@
 ## Netty问题整理
 * 服务端启动路径是什么
 * 默认情况下，Netty服务器起多少线程？何时启动？
-* Netty如何拒绝jdk空轮询的bug？
+* Netty如何解决jdk空轮询的bug？
 * Netty如何保证异步串行无锁化？
 * Netty在哪里检测有新连接接入的？
 * 新连接是怎样注册到NioEventLoop线程的？
